@@ -1157,11 +1157,13 @@ if __name__ == '__main__':
         print(f"[!] Warning: Could not connect to database ({e})")
         
     local_ip = get_local_ip()
-    print(f"[IGPS] Local access:   http://{local_ip}:5000")
+    port = int(os.environ.get("PORT", 5000))
+    print(f"[IGPS] Local access:   http://{local_ip}:{port}")
     
-    # Start ngrok thread
-    threading.Thread(target=start_ngrok, daemon=True).start()
+    # Start ngrok thread only if not in production
+    if os.environ.get("FLASK_ENV") != "production":
+        threading.Thread(target=start_ngrok, daemon=True).start()
     
     # Run Flask
     # using use_reloader=False because otherwise it runs start_ngrok twice
-    app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)
+    app.run(host='0.0.0.0', port=port, debug=False, use_reloader=False)

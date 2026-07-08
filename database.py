@@ -11,7 +11,15 @@ DB_PASSWORD = os.getenv('DB_PASSWORD', '9443631178')
 DB_NAME = os.getenv('DB_NAME', 'igps_db')
 
 # Connection string
-DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
+# Check if Render gave us a DATABASE_URL
+DATABASE_URL = os.getenv('DATABASE_URL')
+if DATABASE_URL:
+    # SQLAlchemy requires postgresql:// instead of postgres://
+    if DATABASE_URL.startswith("postgres://"):
+        DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+else:
+    # Fallback to local MySQL
+    DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
 
 # We don't connect immediately in case the DB isn't created yet. We'll provide a get_engine function.
 engine = None

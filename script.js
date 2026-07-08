@@ -22,10 +22,13 @@
 /* ──────────────────────────────────────────────────────────────
    1. CONSTANTS & CONFIG
    ────────────────────────────────────────────────────────────── */
-const BASE_URL = window.location.origin;
+let apiBase = "";
+if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+  apiBase = "http://localhost:5000";
+}
 
 const CONFIG = {
-  API_BASE: BASE_URL + '/api',           // Flask backend base URL
+  API_BASE: apiBase + '/api',           // Flask backend base URL
   TOKEN_KEY: 'token',
   USER_KEY:  'user',
   SESSION_DURATION: 8 * 60,  // minutes — match backend JWT expiry
