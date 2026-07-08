@@ -12,6 +12,8 @@ A Full-Stack, Role-Based Access Control (RBAC) web application designed to digit
 You can test the fully functional live application here:
 **[Live Website](https://nlc-integrated-gatepass-system.onrender.com)**
 
+> **Note on Performance:** The live demo is hosted on free tiers (Render & Neon.tech). If the application hasn't been accessed in the last 15 minutes, the server goes to sleep. **The initial page load may take 40-50 seconds** to wake the server up. Subsequent requests will be extremely fast!
+
 ### Demo Credentials
 To explore the different role-based dashboards, you can log in using any of the following test accounts:
 
